@@ -4,42 +4,34 @@ Explanation about API:
 
 Services:
 
-1.Text /text
+1.electricalbikes/ bikes
 Methods:
 	1. GET:
-		- Return "Got it!" /basic
-		- Return An Exception /exception
-		- Return Hello "username" given a username /users/:username
-
-2.Orders /orders
-Methods:
-	1. GET:
-		- Get all products in the list /products
-		- Get all products sorted by price /sortedbyprice
-		- Get all products sorted by number of sales /sortedbysales
-		- Get all orders of a user /:user
+		- Get bikes of a stations sorted by kms asc  /sortedbikesbykm/:idStation
+		- Get bike /getbike
+		- Get bikes by user /getbikes/:idUser
 	2. POST:
+		- Add user /adduser
+		- Add station /addstation
+		- Add bike /addbike
 		- Place an order /placeanorder/:user
-	3. DELETE:
-		- Serve an order /serveanorder
 
 Models:
 
-1. Usuario:
-	- String username
+1. Bike:
+	String idBike;
+    String description;
+    double kms;
+    String idStation;
 
-2. Producto:
-	- String name
-	- Double price
-	- Integer sales
-
-3. Pedido:
-	1. LProducto:
-		- Integer q
-		- String producto
-	2. Usuario:
-		- String username
-
-4. LProducto:
-	- Integer q
-	- String username	
+2. Station:
+	String idStation;
+    String description;
+    int max;
+    double lat;
+    double lon;
+3. User:
+String idUser;
+    String name;
+    String surname;
+	
