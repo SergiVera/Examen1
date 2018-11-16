@@ -15,7 +15,7 @@ public class MyBikeImpl implements MyBike {
     private Station arrayStations[];
     private LinkedList<Bike> bikesStation;
     private LinkedList<Bike> bikesUser;
-    //Initialize the hashmap(key: string; value: Usuario) of users
+    //Initialize the hashmap(key: string; value: User) of users
     private HashMap<String, User> users;
 
     private MyBikeImpl(){
@@ -116,7 +116,8 @@ public class MyBikeImpl implements MyBike {
 
         if(theUser != null) {
             if (station != null) {
-                firstBike = station.bikes.getFirst();
+                firstBike = station.bikes.removeFirst();
+                theUser.addBike(firstBike);
             }
             else {
                 log.error("The station doesn't exist");
@@ -165,6 +166,7 @@ public class MyBikeImpl implements MyBike {
     //Add a new Bike into a Station
     public void addBike(String idBike, String description, double kms, String idStation) throws StationFullException, StationNotFoundException{
         Station station = null;
+        Bike bike;
         for(int i = 0; i<this.numstations; i++) {
             if(idStation.equals(this.arrayStations[i].idStation)){
                 station = this.arrayStations[i];

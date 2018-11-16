@@ -5,6 +5,10 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class Bike {
     //Attributes
+    @JsonIgnore
+    @ApiModelProperty(hidden = true)
+    private int id;
+
     String idBike;
     String description;
     double kms;
