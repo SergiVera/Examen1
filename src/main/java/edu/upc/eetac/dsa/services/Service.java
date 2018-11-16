@@ -15,7 +15,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Api(value = "/electricalbikes", description = "Endpoint to Text Service")
-@Path("text")
+@Path("/bikes")
 public class Service {
 
     private MyBike mb;
@@ -108,19 +108,23 @@ public class Service {
     @GET
     @ApiOperation(value = "get bike", notes = "x")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Successful", response = Bike.class, responseContainer = "Bike")
+            @ApiResponse(code = 201, message = "Successful", response = Bike.class, responseContainer = "Bike"),
+            @ApiResponse(code = 404, message = "UserNotFoundException"),
+            @ApiResponse(code = 402, message = "StationNotFoundException")
     })
-    @Path("/getbike")
+    @Path("/getbike/{idStation}/{idUser}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response getBike(Station s) {
-        String idStation = s.getIdStation();
-        String description = s.getDescription();
-        int max = s.getMax();
-        double lat = s.getLat();
-        double lon = s.getLon();
-        this.mb.addStation(idStation, description, max, lat, lon);
-
-        return Response.status(201).build();
+    public Response getBike(@PathParam("idStation") String idStation, @PathParam("idUser") String idUser) {
+        try {
+            Bike bike = this.mb.getBike(idStation, idUser);
+            return Response.status(201).entity(bike).build();
+        } catch (UserNotFoundException e) {
+            e.printStackTrace();
+            return Response.status(404).build();
+        } catch (StationNotFoundException e) {
+            e.printStackTrace();
+            return Response.status(402).build();
+        }
     }
 
     @GET

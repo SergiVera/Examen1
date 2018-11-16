@@ -20,23 +20,27 @@ public class MyBikeImpl implements MyBike {
 
     private MyBikeImpl(){
         numstations = 0;
-        arrayStations = new Station[10];
+        arrayStations = new Station[S];
         bikesStation = new LinkedList<>();
         bikesUser = new LinkedList<>();
         users = new HashMap<>();
     }
 
     public static MyBike getInstance(){
-        if(instance==null) instance = new MyBikeImpl();
+        if(instance==null){
+            instance = new MyBikeImpl();
+        }
         return instance;
     }
 
     //Clear all the data structures
     public void clear(){
+        instance = null;
         arrayStations = null;
-        bikesStation = null;
-        bikesUser = null;
-        users = null;
+        arrayStations = new Station[S];
+        bikesStation.clear();
+        bikesUser.clear();
+        users.clear();
     }
 
     //Get the number of users
